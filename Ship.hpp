@@ -1,129 +1,211 @@
-﻿#pragma once
-#include <SFML/Graphics.hpp>
+#pragma once
+#include <string>
+#include <thread>
 #include <iostream>
+#include "Ship.hpp"
 #include "Bullet.hpp"
+#include <windows.h>
+#include <time.h>
 
-/*namespace mt
+namespace mt  // пространство имен
 {
 
-	class Ship
+	const float pi = acos(-1); // для более точного значения
+
+	class Meditation
 	{
-		const int m_bulletR = 10;  // радиус пули
-		float m_v_bullet = 200;  // скорость пули
+		int m_width;
+		int m_height;
+		std::string m_capture;
 
-		float m_x, m_y;
-		float m_alpha;
-		float m_v;
-		float m_r;
-		sf::Texture m_textureShip;
-		sf::Sprite m_spriteShip;
-		float m_scaleFactor = 0.2f;  // погрешность
+		sf::RenderWindow m_window;
+		sf::Image BackI, StartI;
+		sf::Texture BackT, StartT;
+		sf::Sprite BackS, StartS;
 
-		std::vector <Bullet> bullets;  // создание вектора-массива с множеством пуль класса Пуля
+		sf::Font font;
+		sf::Text text;
+
+		Dairy comeback;
+
 
 	public:
-		Ship() = default;  // конструктор по умолчанию 
-		
-		Ship(float x, float y)  // местонахождение корабля
+		Meditation(int width, int height, const std::string& capture)
 		{
-			m_x = x;
-			m_y = y;
+			m_width = width;
+			m_height = height;
+			m_capture = capture;
 		}
 
-		bool Setup(float x, float y)
+		void Setup(int n)
 		{
-			m_x = x;
-			m_y = y;
-			m_alpha = 0;
-			m_v = 0;
+			std::string name;
 
-			// 
-			if (!m_textureShip.loadFromFile("falcon.png"))
+			m_window.create(sf::VideoMode(m_width, m_height), m_capture);
+
+			BackI.loadFromFile("Back.png");
+			BackT.loadFromImage(BackI);
+			BackS.setTexture(BackT);
+			BackS.setPosition(20, 20);
+
+			StartI.loadFromFile("Start.png");
+			StartT.loadFromImage(StartI);
+			StartS.setTexture(StartT);
+			StartS.setPosition(770, 430);
+
+		}
+
+		void Timer()
+		{
+			sf::Font font;
+			sf::Text text("", font, 20);
+			font.loadFromFile("arial.ttf");
+			text.setColor(sf::Color::Black);
+
+			int hour = 00;
+			int minute = 00;
+			int second = 00;
+			std::string time;
+
+			/*if (hour == 00 & minute == 00 & second == 00)
 			{
-				std::cout << "Error while loading falcon.png" << std::endl;
-				return false;
+				time = hour, ".", minute, ".", second;
+				text = time;
+				second++;
+
+				if (hour == 00 & minute == 00 & second > 59)
+				{
+					second == 00;
+					minute++;
+				}
 			}
-			m_spriteShip.setTexture(m_textureShip);
-
-			m_spriteShip.setScale(m_scaleFactor, m_scaleFactor);  // масштабирование кораблика
-			m_spriteShip.setOrigin(m_textureShip.getSize().x / 2, m_textureShip.getSize().y / 2); // по умолчанию 
-			m_spriteShip.setPosition(m_x, m_y);
-			m_spriteShip.setRotation(m_alpha);
-
-			if (m_textureShip.getSize().x > m_textureShip.getSize().y)  // при растягивании и сужении экрана
-				m_r = m_scaleFactor * m_textureShip.getSize().x / 2;
-			else
-				m_r = m_scaleFactor * m_textureShip.getSize().y / 2;
-
-			//bullet.Setup(100, 100, 20, 10, 10);
-		}
-
-		void Attack()
-		{
-			Bullet bullet; // пустая пуля
-			
-			float alphaRad = acos(-1) * m_alpha / 180;  // угол наклона для пули в радианах. переход от градусов к радианам
-			// устанавливаем пулю и ее параметры
-
-			bullet.Setup(m_x, m_y, m_bulletR, (m_v + m_v_bullet) * cos(alphaRad), (m_v + m_v_bullet) * sin(alphaRad));
-			bullets.push_back(bullet);  // добавляем пулю в массив пуль
-		}
-
-
-
-		void setVelocity(float dv)  // скорость движения
-		{
-			m_v += dv;
-		}
-
-		float V() { return m_v; }  // геттеры корабля
-		float R() { return m_r; }
-		float X() { return m_x; }
-		float Y() { return m_y; }
-
-		float B_X(int i) { return bullets[i].X(); }  // геттеры пули
-		float B_Y(int i) { return bullets[i].Y(); }
-		float B_R(int i) { return bullets[i].R(); }
-
-
-		void Move(float dt)
-		{
-
-			for (int i = 0; i < bullets.size(); i++)  // движение каждой пули
+			if (second == 60)
 			{
-				bullets[i].Move(dt);
+				second = 00;
+				minute++;
+			}*/
+			while (hour < 3)
+			{
+				while (minute < 60)
+				{
+					while (second < 60)
+					{
+						sf::Text text(time, font, 20);
+						time = hour, ".", minute, ".", second;
+						sf::Text text(time, font, 20);
+						m_window.draw(text);
+						second++;
+					}
+					minute++;
+					second = 00;
+					time = hour, ".", minute, ".", second;
+					sf::Text text(time, font, 20);
+					m_window.draw(text);
+				}
+				hour++;
+				minute = 00;
+				second = 00;
+				time = hour, ".", minute, ".", second;
+				sf::Text text(time, font, 20);
+				m_window.draw(text);
 			}
 
-			float alphaRad = acos(-1) * m_alpha / 180;
-			m_x += m_v * cos(alphaRad) * dt;  // определяем насколько подвинуться 
-			m_y += m_v * sin(alphaRad) * dt;
-			m_spriteShip.setPosition(m_x, m_y);
 		}
 
-		void Rotate(float dalpha)  // поворот
+		void LifeCycle()
 		{
-			m_alpha += dalpha;
-			m_spriteShip.setRotation(m_alpha);
-		}
+			sf::Clock clock;
 
-		sf::Sprite Get()  // сам объект для отрисовки
-		{
-			return m_spriteShip;
-		}
-		
-		std::vector <Bullet> GetBullets()  // возвращаем сам объект пули, который надо нарисовать
-		{
-			return bullets;
-		}
+			while (m_window.isOpen())
+			{
+				sf::Texture backgroundTexture;
+				if (!backgroundTexture.loadFromFile("flower.png")) {
+					return; // ошибка загрузки картинки
+				}
 
-		int CountBullets() {
-			return bullets.size();
-		}
+				sf::Sprite backgroundSprite;
+				backgroundSprite.setTexture(backgroundTexture);
 
-		void IsVisBullet(int i, bool value) {  // сеттер для видимости пули
-			bullets[i].IsVis(value);
-		}
+				sf::Vector2f targetSize(m_width, m_height); //целевой размер
 
+				backgroundSprite.setScale(
+					targetSize.x / backgroundSprite.getLocalBounds().width,
+					targetSize.y / backgroundSprite.getLocalBounds().height);
+
+				sf::Vector2f targetSizeS(50.0f, 50.0f); //целевой размер
+
+				BackS.setScale(
+					targetSizeS.x / BackS.getLocalBounds().width,
+					targetSizeS.y / BackS.getLocalBounds().height);
+
+				StartS.setScale(
+					targetSizeS.x / BackS.getLocalBounds().width,
+					targetSizeS.y / BackS.getLocalBounds().height);
+
+
+
+
+				sf::Event event;
+				while (m_window.pollEvent(event))
+				{
+					if (event.type == sf::Event::Closed)
+						// сохранить результат работы в приложении
+						m_window.close();
+
+					if (event.type == sf::Event::MouseWheelMoved)
+					{
+						event.mouseWheel.delta;
+						event.mouseWheel.x;
+						event.mouseWheel.y;
+					}
+
+
+					if (event.type == sf::Event::MouseButtonPressed)
+					{
+						if (event.type == sf::Event::MouseMoved)
+						{
+							if (event.mouseButton.button == sf::Mouse::Left)// левая кнопка мыши нажата
+							{
+								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // координаты на кнопке
+								{
+									comeback.LifeCycleDairy();
+								}
+								if ((event.mouseMove.x > 770 & event.mouseMove.x < 790) & (event.mouseMove.y > 430 & event.mouseMove.y < 450)) // координаты на кнопке
+								{
+
+									sf::Texture backgroundTexture;
+									if (!backgroundTexture.loadFromFile("flowertimer.png")) {
+										return; // ошибка загрузки картинки
+									}
+									m_window.draw(backgroundSprite);
+
+									StartI.loadFromFile("Pause.png");
+									StartT.loadFromImage(StartI);
+									StartS.setTexture(StartT);
+									StartS.setPosition(770, 430);
+									Timer();
+									// как остановить таймер, нажав на стоп?
+								}
+								if ((event.mouseMove.x > 50 & event.mouseMove.x < 1480) & (event.mouseMove.y > 20)) // координаты на кнопке
+								{
+
+								}
+							}
+						}
+					}
+				}
+
+
+				float dt = clock.getElapsedTime().asSeconds();
+				clock.restart();
+
+				m_window.clear();
+				m_window.draw(backgroundSprite);
+
+				m_window.draw(BackS);
+				m_window.draw(StartS);
+				m_window.display();
+			}
+		}
 	};
-
-}*/
+}
