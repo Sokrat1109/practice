@@ -68,20 +68,20 @@ namespace mt
 			while (m_window.isOpen())
 			{
 				sf::Texture backgroundTexture;
-				if (!backgroundTexture.loadFromFile("flower.png")) {
-					return; // îøèáêà çàãğóçêè êàğòèíêè
+				if (!backgroundTexture.loadFromFile("fon_dairy.png")) {
+					return; // Ğ¾ÑˆĞ¸Ğ±ĞºĞ° Ğ·Ğ°Ğ³Ñ€ÑƒĞ·ĞºĞ¸ ĞºĞ°Ñ€Ñ‚Ğ¸Ğ½ĞºĞ¸
 				}
 
 				sf::Sprite backgroundSprite;
 				backgroundSprite.setTexture(backgroundTexture);
 
-				sf::Vector2f targetSize(m_width, m_height); //öåëåâîé ğàçìåğ
+				sf::Vector2f targetSize(m_width, m_height); //Ñ†ĞµĞ»ĞµĞ²Ğ¾Ğ¹ Ñ€Ğ°Ğ·Ğ¼ĞµÑ€
 
 				backgroundSprite.setScale(
 					targetSize.x / backgroundSprite.getLocalBounds().width,
 					targetSize.y / backgroundSprite.getLocalBounds().height);
 
-				sf::Vector2f targetSizeS(50.0f, 50.0f); //öåëåâîé ğàçìåğ
+				sf::Vector2f targetSizeS(50.0f, 50.0f); //Ñ†ĞµĞ»ĞµĞ²Ğ¾Ğ¹ Ñ€Ğ°Ğ·Ğ¼ĞµÑ€
 
 				BackS.setScale(
 					targetSizeS.x / BackS.getLocalBounds().width,
@@ -91,7 +91,7 @@ namespace mt
 					targetSizeS.x / SaveS.getLocalBounds().width,
 					targetSizeS.y / SaveS.getLocalBounds().height);*/
 
-				sf::Vector2f targetSizeN(500.0f, 500.0f); //öåëåâîé ğàçìåğ
+				sf::Vector2f targetSizeN(500.0f, 500.0f); //Ñ†ĞµĞ»ĞµĞ²Ğ¾Ğ¹ Ñ€Ğ°Ğ·Ğ¼ĞµÑ€
 
 				NoteS.setScale(
 					targetSizeN.x / NoteS.getLocalBounds().width,
@@ -103,7 +103,7 @@ namespace mt
 				while (m_window.pollEvent(event))
 				{
 					if (event.type == sf::Event::Closed)
-						// ñîõğàíèòü ğåçóëüòàò ğàáîòû â ïğèëîæåíèè
+						// ÑĞ¾Ñ…Ñ€Ğ°Ğ½Ğ¸Ñ‚ÑŒ Ñ€ĞµĞ·ÑƒĞ»ÑŒÑ‚Ğ°Ñ‚ Ñ€Ğ°Ğ±Ğ¾Ñ‚Ñ‹ Ğ² Ğ¿Ñ€Ğ¸Ğ»Ğ¾Ğ¶ĞµĞ½Ğ¸Ğ¸
 						m_window.close();
 
 					if (event.type == sf::Event::MouseWheelMoved)
@@ -118,17 +118,17 @@ namespace mt
 					{
 						if (event.type == sf::Event::MouseMoved)
 						{
-							if (event.mouseButton.button == sf::Mouse::Left)// ëåâàÿ êíîïêà ìûøè íàæàòà
+							if (event.mouseButton.button == sf::Mouse::Left)// Ğ»ĞµĞ²Ğ°Ñ ĞºĞ½Ğ¾Ğ¿ĞºĞ° Ğ¼Ñ‹ÑˆĞ¸ Ğ½Ğ°Ğ¶Ğ°Ñ‚Ğ°
 							{
-								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // êîîğäèíàòû íà êíîïêå
+								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // ĞºĞ¾Ğ¾Ñ€Ğ´Ğ¸Ğ½Ğ°Ñ‚Ñ‹ Ğ½Ğ° ĞºĞ½Ğ¾Ğ¿ĞºĞµ
 								{
 									comeback.LifeCycle();
 								}
-								if ((event.mouseMove.x > 1500 & event.mouseMove.x < 1510) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // êîîğäèíàòû íà êíîïêå
+								if ((event.mouseMove.x > 1500 & event.mouseMove.x < 1510) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // ĞºĞ¾Ğ¾Ñ€Ğ´Ğ¸Ğ½Ğ°Ñ‚Ñ‹ Ğ½Ğ° ĞºĞ½Ğ¾Ğ¿ĞºĞµ
 								{
-									//ñîõğàíèòü ??
+									//ÑĞ¾Ñ…Ñ€Ğ°Ğ½Ğ¸Ñ‚ÑŒ ??
 								}
-								if ((event.mouseMove.x > 1400 & event.mouseMove.x < 1420) & (event.mouseMove.y > 350 & event.mouseMove.y < 360)) // êîîğäèíàòû íà êíîïêå
+								if ((event.mouseMove.x > 1400 & event.mouseMove.x < 1420) & (event.mouseMove.y > 350 & event.mouseMove.y < 360)) // ĞºĞ¾Ğ¾Ñ€Ğ´Ğ¸Ğ½Ğ°Ñ‚Ñ‹ Ğ½Ğ° ĞºĞ½Ğ¾Ğ¿ĞºĞµ
 								{
 									write.LifeCycleNote(arr);
 								}
