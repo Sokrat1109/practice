@@ -85,27 +85,30 @@ namespace mt
 
 		}
 
-		void LifeCycleNote(std::vector<char> array)
+		void LifeCycleNote(std::vector<char> arr)
 		{
 			sf::Clock clock;
+
+			std::vector<char> array;
+			array = arr;
 
 			while (m_window.isOpen())
 			{
 				sf::Texture backgroundTexture;
-				if (!backgroundTexture.loadFromFile("flower.png")) {
-					return; // ошибка загрузки картинки
+				if (!backgroundTexture.loadFromFile("fon_dairy.png")) {
+					return; // РѕС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РєР°СЂС‚РёРЅРєРё
 				}
 
 				sf::Sprite backgroundSprite;
 				backgroundSprite.setTexture(backgroundTexture);
 
-				sf::Vector2f targetSize(m_width, m_height); //целевой размер
+				sf::Vector2f targetSize(m_width, m_height); //С†РµР»РµРІРѕР№ СЂР°Р·РјРµСЂ
 
 				backgroundSprite.setScale(
 					targetSize.x / backgroundSprite.getLocalBounds().width,
 					targetSize.y / backgroundSprite.getLocalBounds().height);
 
-				sf::Vector2f targetSizeS(50.0f, 50.0f); //целевой размер
+				sf::Vector2f targetSizeS(50.0f, 50.0f); //С†РµР»РµРІРѕР№ СЂР°Р·РјРµСЂ
 
 				BackS.setScale(
 					targetSizeS.x / BackS.getLocalBounds().width,
@@ -121,7 +124,7 @@ namespace mt
 				while (m_window.pollEvent(event))
 				{
 					if (event.type == sf::Event::Closed)
-						// сохранить результат работы в приложении
+						// СЃРѕС…СЂР°РЅРёС‚СЊ СЂРµР·СѓР»СЊС‚Р°С‚ СЂР°Р±РѕС‚С‹ РІ РїСЂРёР»РѕР¶РµРЅРёРё
 						m_window.close();
 
 					if (event.type == sf::Event::MouseWheelMoved)
@@ -136,19 +139,19 @@ namespace mt
 					{
 						if (event.type == sf::Event::MouseMoved)
 						{
-							if (event.mouseButton.button == sf::Mouse::Left)// левая кнопка мыши нажата
+							if (event.mouseButton.button == sf::Mouse::Left)// Р»РµРІР°СЏ РєРЅРѕРїРєР° РјС‹С€Рё РЅР°Р¶Р°С‚Р°
 							{
-								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // координаты на кнопке
+								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // РєРѕРѕСЂРґРёРЅР°С‚С‹ РЅР° РєРЅРѕРїРєРµ
 								{
 									writes = {};
 									comeback.LifeCycleDairy();
 								}
-								if ((event.mouseMove.x > 1500 & event.mouseMove.x < 1510) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // координаты на кнопке
+								if ((event.mouseMove.x > 1500 & event.mouseMove.x < 1510) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // РєРѕРѕСЂРґРёРЅР°С‚С‹ РЅР° РєРЅРѕРїРєРµ
 								{
-									writes = array;
+									array.push_back(writes);
 									comeback.LifeCycleDairy();
 								}
-								if ((event.mouseMove.x > 50 & event.mouseMove.x < 1480) & (event.mouseMove.y > 20)) // координаты на кнопке
+								if ((event.mouseMove.x > 50 & event.mouseMove.x < 1480) & (event.mouseMove.y > 20)) // РєРѕРѕСЂРґРёРЅР°С‚С‹ РЅР° РєРЅРѕРїРєРµ
 								{
 									
 								}
@@ -171,7 +174,7 @@ namespace mt
 		}
 		/*Bullet() = default;
 
-		Bullet(float x, float y, float r, float vx, float vy)  // конструктор
+		Bullet(float x, float y, float r, float vx, float vy)  // РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
 		{
 			Setup(x, y, r, vx, vy);
 		}
@@ -181,7 +184,7 @@ namespace mt
 			m_x = x;
 			m_y = y;
 			m_r = r;
-			m_vx = vx;  // катеты для вектора скорости
+			m_vx = vx;  // РєР°С‚РµС‚С‹ РґР»СЏ РІРµРєС‚РѕСЂР° СЃРєРѕСЂРѕСЃС‚Рё
 			m_vy = vy;
 			m_shape.setOrigin(m_r, m_r);
 			m_shape.setRadius(m_r);
@@ -192,12 +195,12 @@ namespace mt
 			m_shape.setFillColor(sf::Color::Color(color_r, color_b, color_g, 255));
 		}
 
-		sf::CircleShape Get()  // передаем объект который нужно нарисовать
+		sf::CircleShape Get()  // РїРµСЂРµРґР°РµРј РѕР±СЉРµРєС‚ РєРѕС‚РѕСЂС‹Р№ РЅСѓР¶РЅРѕ РЅР°СЂРёСЃРѕРІР°С‚СЊ
 		{
 			return m_shape;
 		}
 
-		float X() { return m_x; }  // сеттеры и геттеры
+		float X() { return m_x; }  // СЃРµС‚С‚РµСЂС‹ Рё РіРµС‚С‚РµСЂС‹
 		void X(float value) {
 			m_x = value;
 			m_shape.setPosition(m_x, m_y);
@@ -211,14 +214,14 @@ namespace mt
 		float Vx() { return m_vx; }
 		float Vy() { return m_vy; }
 
-		void Move(float dt)  // движение
+		void Move(float dt)  // РґРІРёР¶РµРЅРёРµ
 		{
 			m_x += m_vx * dt;
 			m_y += m_vy * dt;
 			m_shape.setPosition(m_x, m_y);
 		}
 
-		bool IsVis() { return isVis; }  // сеттер и геттер для видимости пули
+		bool IsVis() { return isVis; }  // СЃРµС‚С‚РµСЂ Рё РіРµС‚С‚РµСЂ РґР»СЏ РІРёРґРёРјРѕСЃС‚Рё РїСѓР»Рё
 		void IsVis(bool value) { isVis = value; }*/
 	};
 }
