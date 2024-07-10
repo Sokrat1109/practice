@@ -3,7 +3,10 @@
 #include <string>
 #include <ctime>
 #include <vector>
-
+#include <iostream>
+#include "Ship.hpp"
+#include "Bullet.hpp"
+#include "Timer.hpp"
 
 // ДНЕВНИК СПИСОК
 
