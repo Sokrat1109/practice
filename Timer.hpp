@@ -7,6 +7,7 @@
 #include <windows.h>
 #include <time.h>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 
 // ТАЙМЕР МЕДИТАЦИИ
