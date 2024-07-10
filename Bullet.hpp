@@ -2,6 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
+#include <iostream>
+#include "Ship.hpp"
+#include "Bullet.hpp"
+#include "Timer.hpp"
 
 
 // КОНКРЕТНАЯ ЗАМЕТКА
