@@ -1,0 +1,247 @@
+#pragma once
+#include <string>
+#include <thread>
+#include <iostream>
+#include <windows.h>
+#include <time.h>
+#include <chrono>
+#include <thread>
+
+#include "Ship.hpp"
+#include "Bullet.hpp"
+#include "Timer.hpp"
+#include "Control.hpp"
+#include "Circle.hpp"
+#include "ControlTime.hpp"
+
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
+
+
+// ТАЙМЕР МЕДИТАЦИИ
+
+namespace mt  // пространство имен
+{
+
+	const float pi = acos(-1); // для более точного значения
+
+	class Breathe
+	{
+		int m_width;
+		int m_height;
+		std::string m_capture;
+
+		sf::RenderWindow m_window;
+		sf::Image BackI, SquareI, vdohI, vydohI, zaderjkaI;
+		sf::Texture BackT, SquareT, vdohT, vydohT, zaderjkaT;
+		sf::Sprite BackS, SquareS, vdohS, vydohS, zaderjkaS;
+
+		sf::Font font;
+		sf::Text text;
+		sf::SoundBuffer buffer;
+		sf::Sound sound;
+
+		Control comebackControl;
+		Game comebackGame;
+
+
+	public:
+		Breathe(int width, int height, const std::string& capture)
+		{
+			m_width = width;
+			m_height = height;
+			m_capture = capture;
+		}
+
+		void Setup(int n)
+		{
+
+			m_window.create(sf::VideoMode(m_width, m_height), m_capture);
+
+			BackI.loadFromFile("Back.png");
+			BackT.loadFromImage(BackI);
+			BackS.setTexture(BackT);
+			BackS.setPosition(20, 20);
+
+			SquareI.loadFromFile("Square.png");
+			SquareT.loadFromImage(SquareI);
+			SquareS.setTexture(SquareT);
+			SquareS.setPosition(300, 400);
+
+			vdohI.loadFromFile("vdoh.png");
+			vdohT.loadFromImage(vdohI);
+			vdohS.setTexture(vdohT);
+			vdohS.setPosition(300, 400);
+
+			vydohI.loadFromFile("vydoh.png");
+			vydohT.loadFromImage(vydohI);
+			vydohS.setTexture(vydohT);
+			vydohS.setPosition(300, 400);
+
+			zaderjkaI.loadFromFile("zaderjka.png");
+			zaderjkaT.loadFromImage(zaderjkaI);
+			zaderjkaS.setTexture(zaderjkaT);
+			zaderjkaS.setPosition(300, 400);
+
+		}
+
+		// как сделать, чтобы таймер увеличивал значение ровно +1 в секунду
+		void TimerBreathe() // int n
+		{
+			sf::Font font;
+			sf::Text text("", font, 20);
+			font.loadFromFile("arial.ttf");
+			text.setColor(sf::Color::Black);
+
+			int count = 0;
+			int banner = 0;
+
+			std::string time;
+			std::string stop;
+
+
+			while (count < 5)
+			{
+				time = count+1;
+				sf::Text text(time, font, 20);
+				m_window.draw(text);
+
+				std::chrono::this_thread::sleep_for(0.999s);
+				system("cls");
+
+				if (count < 4)
+				{
+					count++;
+				}
+
+				if (count == 4)
+				{
+					count = 0;
+					banner++;
+				}
+
+				if (banner == 0)
+				{
+					m_window.draw(vdohS);
+				}
+				if (banner == 1 || banner == 3)
+				{
+					m_window.draw(zaderjkaS);
+				}
+				if (banner == 2)
+				{
+					m_window.draw(vydohS);
+				}
+				if (banner >= 4)
+				{
+					break;
+				}
+			}
+		}
+
+		void LifeCycleTimer()
+		{
+			sf::Clock clock;
+
+			while (m_window.isOpen())
+			{
+				sf::Texture backgroundTexture;
+				if (!backgroundTexture.loadFromFile("fon_dairy.png")) {
+					return; // ошибка загрузки картинки
+				}
+
+				sf::Sprite backgroundSprite;
+				backgroundSprite.setTexture(backgroundTexture);
+
+				sf::Vector2f targetSize(m_width, m_height); //целевой размер
+
+				backgroundSprite.setScale(
+					targetSize.x / backgroundSprite.getLocalBounds().width,
+					targetSize.y / backgroundSprite.getLocalBounds().height);
+
+				sf::Vector2f targetSizeB(50.0f, 50.0f); //целевой размер
+
+				BackS.setScale(
+					targetSizeB.x / BackS.getLocalBounds().width,
+					targetSizeB.y / BackS.getLocalBounds().height);
+
+				sf::Vector2f targetSizeS(100.0f, 100.0f);
+
+				SquareS.setScale(
+					targetSizeS.x / SquareS.getLocalBounds().width,
+					targetSizeS.y / SquareS.getLocalBounds().height);
+
+				sf::Vector2f targetSizeV(100.0f, 100.0f);
+
+				vdohS.setScale(
+					targetSizeV.x / vdohS.getLocalBounds().width,
+					targetSizeV.y / vdohS.getLocalBounds().height);
+
+				vydohS.setScale(
+					targetSizeV.x / vydohS.getLocalBounds().width,
+					targetSizeV.y / vydohS.getLocalBounds().height);
+
+				zaderjkaS.setScale(
+					targetSizeV.x / zaderjkaS.getLocalBounds().width,
+					targetSizeV.y / zaderjkaS.getLocalBounds().height);
+
+
+				//sf::SoundBuffer buffer;
+				buffer.loadFromFile("Sound.wav");
+				//sf::Sound sound;
+				sound.setBuffer(buffer);
+				sound.play();
+
+				TimerBreathe(); // 1
+
+
+				sf::Event event;
+				while (m_window.pollEvent(event))
+				{
+					if (event.type == sf::Event::Closed)
+						// сохранить результат работы в приложении
+						m_window.close();
+
+					if (event.type == sf::Event::MouseWheelMoved)
+					{
+						event.mouseWheel.delta;
+						event.mouseWheel.x;
+						event.mouseWheel.y;
+					}
+
+
+					if (event.type == sf::Event::MouseButtonPressed)
+					{
+						if (event.type == sf::Event::MouseMoved)
+						{
+							if (event.mouseButton.button == sf::Mouse::Left)// левая кнопка мыши нажата
+							{
+								// back
+								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // координаты на кнопке
+								{
+									comebackGame.LifeCycle();
+								}
+								// square - stop
+								if ((event.mouseMove.x > 50 & event.mouseMove.x < 1480) & (event.mouseMove.y > 20)) // координаты на кнопке
+								{
+									comebackControl.LifeCycleControl();
+								}
+							}
+						}
+					}
+				}
+
+
+				float dt = clock.getElapsedTime().asSeconds();
+				clock.restart();
+
+				m_window.clear();
+				m_window.draw(backgroundSprite);
+
+				m_window.draw(BackS);
+				m_window.draw(SquareS);
+				m_window.display();
+			}
+		}
+	};
+}
