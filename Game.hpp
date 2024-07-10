@@ -4,8 +4,11 @@
 #include <iostream>
 #include "Ship.hpp"
 #include "Bullet.hpp"
+#include "Timer.hpp"
+#include "Circle.hpp"
 #include <windows.h>
 #include <time.h>
+#include <SFML/Graphics.hpp>
 
 namespace mt  // пространство имен
 {
@@ -32,6 +35,7 @@ namespace mt  // пространство имен
 
 
 	public:
+
 		Game(int width, int height, const std::string& capture)
 		{
 			m_width = width;
@@ -157,7 +161,4 @@ namespace mt  // пространство имен
 			}
 		}
 	};
-
-	
-
 }
