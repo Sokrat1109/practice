@@ -2,14 +2,19 @@
 #include <string>
 #include <thread>
 #include <iostream>
-#include "Ship.hpp"
-#include "Bullet.hpp"
-#include <windows.h>
-#include <time.h>
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
 #include <chrono>
 #include <thread>
+#include <windows.h>
+#include <time.h>
+
+#include "Ship.hpp"
+#include "Bullet.hpp"
+#include "Control.hpp"
+#include "Circle.hpp"
+#include "ControlTime.hpp"
+
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 
 // ТАЙМЕР МЕДИТАЦИИ
@@ -81,7 +86,7 @@ namespace mt  // пространство имен
 			int minute = 00;
 			int second = 00;
 			std::string time;
-			//std::string stop;
+			std::string stop;
 			// if (n == 1) // if (n == 0)
 
 			while (minute < 15)
