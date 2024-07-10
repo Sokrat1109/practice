@@ -2,10 +2,15 @@
 #include <string>
 #include <thread>
 #include <iostream>
-#include "Timer.hpp"
-#include "Bullet.hpp"
 #include <windows.h>
 #include <time.h>
+
+#include "Bullet.hpp"
+#include "Timer.hpp"
+#include "Control.hpp"
+#include "Circle.hpp"
+#include "ControlTime.hpp"
+
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
