@@ -8,6 +8,8 @@
 #include <time.h>
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
+#include <chrono>
+#include <thread>
 
 
 // ТАЙМЕР МЕДИТАЦИИ
@@ -17,27 +19,28 @@ namespace mt  // пространство имен
 
 	const float pi = acos(-1); // для более точного значения
 
-	class Meditation
+	class Timer
 	{
 		int m_width;
 		int m_height;
 		std::string m_capture;
 
 		sf::RenderWindow m_window;
-		sf::Image BackI, StartI, SquareI;
-		sf::Texture BackT, StartT, SquareT;
-		sf::Sprite BackS, StartS, SquareS;
+		sf::Image BackI, PauseI, SquareI;
+		sf::Texture BackT, PauseT, SquareT;
+		sf::Sprite BackS, PauseS, SquareS;
 
 		sf::Font font;
 		sf::Text text;
 		sf::SoundBuffer buffer;
 		sf::Sound sound;
 
-		Meditation comeback;
+		Meditation comebackMed;
+		Game comebackGame;
 
 
 	public:
-		Meditation(int width, int height, const std::string& capture)
+		Timer(int width, int height, const std::string& capture)
 		{
 			m_width = width;
 			m_height = height;
@@ -46,7 +49,6 @@ namespace mt  // пространство имен
 
 		void Setup(int n)
 		{
-			std::string name;
 
 			m_window.create(sf::VideoMode(m_width, m_height), m_capture);
 
@@ -60,14 +62,15 @@ namespace mt  // пространство имен
 			PauseS.setTexture(PauseT);
 			PauseS.setPosition(770, 430);
 
-			Square.loadFromFile("Square.png");
+			SquareI.loadFromFile("Square.png");
 			SquareT.loadFromImage(SquareI);
 			SquareS.setTexture(SquareT);
 			SquareS.setPosition(20, 20);
 
 		}
 
-		void Timer()
+		// как сделать, чтобы таймер увеличивал значение ровно +1 в секунду
+		void TimerStart() // int n
 		{
 			sf::Font font;
 			sf::Text text("", font, 20);
@@ -78,6 +81,8 @@ namespace mt  // пространство имен
 			int minute = 00;
 			int second = 00;
 			std::string time;
+			//std::string stop;
+			// if (n == 1) // if (n == 0)
 
 			while (minute < 15)
 			{
@@ -85,16 +90,25 @@ namespace mt  // пространство имен
 				{
 					sf::Text text(time, font, 20);
 					time = hour, ".", minute, ".", second;
+					stop = hour, ".", minute, ".", second;
 					sf::Text text(time, font, 20);
 					m_window.draw(text);
 					second++;
+
+					std::chrono::this_thread::sleep_for(0.999s);
+					system("cls");
 				}
 				minute++;
 				second = 00;
 				time = hour, ".", minute, ".", second;
+				stop = hour, ".", minute, ".", second;
 				sf::Text text(time, font, 20);
 				m_window.draw(text);
+
+				std::chrono::this_thread::sleep_for(0.999s);
+				system("cls");
 			}
+
 			if (minute >= 15)
 			{
 				minute = 00;
@@ -131,7 +145,7 @@ namespace mt  // пространство имен
 					targetSizeS.x / BackS.getLocalBounds().width,
 					targetSizeS.y / BackS.getLocalBounds().height);
 
-				Pause.setScale(
+				PauseS.setScale(
 					targetSizeS.x / BackS.getLocalBounds().width,
 					targetSizeS.y / BackS.getLocalBounds().height);
 
@@ -145,7 +159,7 @@ namespace mt  // пространство имен
 				sound.setBuffer(buffer);
 				sound.play();
 
-				Timer();
+				TimerStart(); // 1
 
 
 				sf::Event event;
@@ -169,17 +183,20 @@ namespace mt  // пространство имен
 						{
 							if (event.mouseButton.button == sf::Mouse::Left)// левая кнопка мыши нажата
 							{
+								// back
 								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // координаты на кнопке
 								{
-									comeback.LifeCycleMeditation();
+									comebackGame.LifeCycle();
 								}
+								// pause
 								if ((event.mouseMove.x > 770 & event.mouseMove.x < 790) & (event.mouseMove.y > 430 & event.mouseMove.y < 450)) // координаты на кнопке
 								{
-									
+									// TimerStart(0);
 								}
+								// square - stop
 								if ((event.mouseMove.x > 50 & event.mouseMove.x < 1480) & (event.mouseMove.y > 20)) // координаты на кнопке
 								{
-
+									comebackMed.LifeCycleMeditation();
 								}
 							}
 						}
@@ -194,7 +211,8 @@ namespace mt  // пространство имен
 				m_window.draw(backgroundSprite);
 
 				m_window.draw(BackS);
-				m_window.draw(StartS);
+				m_window.draw(PauseS);
+				m_window.draw(SquareS);
 				m_window.display();
 			}
 		}
