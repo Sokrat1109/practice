@@ -3,6 +3,9 @@
 #include <string>
 #include <vector>
 
+
+// КОНКРЕТНАЯ ЗАМЕТКА
+
 namespace mt
 {
 
@@ -172,56 +175,6 @@ namespace mt
 				m_window.display();
 			}
 		}
-		/*Bullet() = default;
-
-		Bullet(float x, float y, float r, float vx, float vy)  // конструктор
-		{
-			Setup(x, y, r, vx, vy);
-		}
-
-		void Setup(float x, float y, float r, float vx, float vy)  
-		{
-			m_x = x;
-			m_y = y;
-			m_r = r;
-			m_vx = vx;  // катеты для вектора скорости
-			m_vy = vy;
-			m_shape.setOrigin(m_r, m_r);
-			m_shape.setRadius(m_r);
-			m_shape.setPosition(m_x, m_y);
-			int color_r = 255;
-			int color_g = 0;
-			int color_b = 0;
-			m_shape.setFillColor(sf::Color::Color(color_r, color_b, color_g, 255));
-		}
-
-		sf::CircleShape Get()  // передаем объект который нужно нарисовать
-		{
-			return m_shape;
-		}
-
-		float X() { return m_x; }  // сеттеры и геттеры
-		void X(float value) {
-			m_x = value;
-			m_shape.setPosition(m_x, m_y);
-		}
-		void Y(float value) {
-			m_y = value;
-			m_shape.setPosition(m_x, m_y);
-		}
-		float Y() { return m_y; }
-		float R() { return m_r; }
-		float Vx() { return m_vx; }
-		float Vy() { return m_vy; }
-
-		void Move(float dt)  // движение
-		{
-			m_x += m_vx * dt;
-			m_y += m_vy * dt;
-			m_shape.setPosition(m_x, m_y);
-		}
-
-		bool IsVis() { return isVis; }  // сеттер и геттер для видимости пули
-		void IsVis(bool value) { isVis = value; }*/
+		
 	};
 }
