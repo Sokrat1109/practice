@@ -8,6 +8,7 @@
 #include "Bullet.hpp"
 #include "Timer.hpp"
 
+
 // ДНЕВНИК СПИСОК
 
 namespace mt
@@ -67,7 +68,11 @@ namespace mt
 			NoteS.setPosition(50, 20);
 		}
 
-		void LifeCycleDairy()
+
+		//если save = true, отобразить ее в виде даты
+		//сделать сам список заметок
+		//реализовать прокручивание списка
+		void LifeCycleDairy(bool save)
 		{
 			sf::Clock clock;
 
@@ -126,6 +131,7 @@ namespace mt
 						{
 							if (event.mouseButton.button == sf::Mouse::Left)// левая кнопка мыши нажата
 							{
+								// back
 								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // координаты на кнопке
 								{
 									comeback.LifeCycle();
@@ -134,6 +140,7 @@ namespace mt
 								{
 									//сохранить ??
 								}
+								// write new note
 								if ((event.mouseMove.x > 1400 & event.mouseMove.x < 1420) & (event.mouseMove.y > 350 & event.mouseMove.y < 360)) // координаты на кнопке
 								{
 									write.LifeCycleNote(arr);
