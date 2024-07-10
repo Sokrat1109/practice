@@ -2,11 +2,12 @@
 #include <string>
 #include <thread>
 #include <iostream>
-#include "Ship.hpp"
+#include "Timer.hpp"
 #include "Bullet.hpp"
 #include <windows.h>
 #include <time.h>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 // НАЧАЛО МЕДИТАЦИИ
 
