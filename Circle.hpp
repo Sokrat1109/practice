@@ -4,6 +4,9 @@
 #include <ctime>
 #include <vector>
 
+
+// ДНЕВНИК СПИСОК
+
 namespace mt
 {
 	class Dairy
