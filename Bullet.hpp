@@ -1,12 +1,16 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Ship.hpp"
-#include "Bullet.hpp"
-#include "Timer.hpp"
 
+#include "Ship.hpp"
+#include "Timer.hpp"
+#include "Control.hpp"
+#include "Circle.hpp"
+#include "ControlTime.hpp"
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 // КОНКРЕТНАЯ ЗАМЕТКА
 
