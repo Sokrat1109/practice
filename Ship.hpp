@@ -32,6 +32,7 @@ namespace mt  // пространство имен
 		sf::Text text;
 
 		Game comeback;
+		Timer play;
 
 
 	public:
@@ -137,12 +138,7 @@ namespace mt  // пространство имен
 								// start
 								if ((event.mouseMove.x > 770 & event.mouseMove.x < 790) & (event.mouseMove.y > 430 & event.mouseMove.y < 450)) // координаты на кнопке
 								{
-
-									
-								}
-								if ((event.mouseMove.x > 50 & event.mouseMove.x < 1480) & (event.mouseMove.y > 20)) // координаты на кнопке
-								{
-
+									play.LifeCycleTimer();
 								}
 							}
 						}
