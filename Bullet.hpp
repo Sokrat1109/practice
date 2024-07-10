@@ -148,19 +148,19 @@ namespace mt
 						{
 							if (event.mouseButton.button == sf::Mouse::Left)// левая кнопка мыши нажата
 							{
+								// выйти без сохранения
 								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // координаты на кнопке
 								{
 									writes = {};
-									comeback.LifeCycleDairy();
+									bool save = false;
+									comeback.LifeCycleDairy(save);
 								}
+								// сохранить и выйти
 								if ((event.mouseMove.x > 1500 & event.mouseMove.x < 1510) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // координаты на кнопке
 								{
+									bool save = true;
 									array.push_back(writes);
-									comeback.LifeCycleDairy();
-								}
-								if ((event.mouseMove.x > 50 & event.mouseMove.x < 1480) & (event.mouseMove.y > 20)) // координаты на кнопке
-								{
-									
+									comeback.LifeCycleDairy(save);
 								}
 							}
 						}
@@ -179,6 +179,5 @@ namespace mt
 				m_window.display();
 			}
 		}
-		
 	};
 }
