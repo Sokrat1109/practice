@@ -62,12 +62,9 @@ namespace mt  // пространство имен
 			ControlS.setTexture(ControlT);
 			ControlS.setPosition(1400, 350);
 
-			text.setFont(font);
-			text.setPosition(350, 100);
-			text.setString("Welcome");
-			text.setCharacterSize(500);
-			//text.setColor(sf::Color::Red);
-			text.setStyle(sf::Text::Bold);
+			sf::Text text("Welcome", font, 20);
+			font.loadFromFile("arial.ttf");
+			text.setColor(sf::Color::Black);
 
 		}
 
