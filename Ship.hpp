@@ -6,6 +6,10 @@
 #include "Bullet.hpp"
 #include <windows.h>
 #include <time.h>
+#include <SFML/Audio.hpp>
+
+// НАЧАЛО МЕДИТАЦИИ
+
 
 namespace mt  // пространство имен
 {
@@ -26,7 +30,7 @@ namespace mt  // пространство имен
 		sf::Font font;
 		sf::Text text;
 
-		Dairy comeback;
+		Game comeback;
 
 
 	public:
@@ -55,7 +59,7 @@ namespace mt  // пространство имен
 
 		}
 
-		void Timer()
+		void Time()
 		{
 			sf::Font font;
 			sf::Text text("", font, 20);
@@ -67,52 +71,10 @@ namespace mt  // пространство имен
 			int second = 00;
 			std::string time;
 
-			/*if (hour == 00 & minute == 00 & second == 00)
-			{
-				time = hour, ".", minute, ".", second;
-				text = time;
-				second++;
-
-				if (hour == 00 & minute == 00 & second > 59)
-				{
-					second == 00;
-					minute++;
-				}
-			}
-			if (second == 60)
-			{
-				second = 00;
-				minute++;
-			}*/
-			while (hour < 3)
-			{
-				while (minute < 60)
-				{
-					while (second < 60)
-					{
-						sf::Text text(time, font, 20);
-						time = hour, ".", minute, ".", second;
-						sf::Text text(time, font, 20);
-						m_window.draw(text);
-						second++;
-					}
-					minute++;
-					second = 00;
-					time = hour, ".", minute, ".", second;
-					sf::Text text(time, font, 20);
-					m_window.draw(text);
-				}
-				hour++;
-				minute = 00;
-				second = 00;
-				time = hour, ".", minute, ".", second;
-				sf::Text text(time, font, 20);
-				m_window.draw(text);
-			}
-
+			m_window.draw(text);
 		}
 
-		void LifeCycle()
+		void LifeCycleMeditation()
 		{
 			sf::Clock clock;
 
@@ -142,7 +104,7 @@ namespace mt  // пространство имен
 					targetSizeS.x / BackS.getLocalBounds().width,
 					targetSizeS.y / BackS.getLocalBounds().height);
 
-
+				Time();
 
 
 				sf::Event event;
@@ -166,25 +128,16 @@ namespace mt  // пространство имен
 						{
 							if (event.mouseButton.button == sf::Mouse::Left)// левая кнопка мыши нажата
 							{
+								// back
 								if ((event.mouseMove.x > 20 & event.mouseMove.x < 30) & (event.mouseMove.y > 20 & event.mouseMove.y < 30)) // координаты на кнопке
 								{
-									comeback.LifeCycleDairy();
+									comeback.LifeCycle();
 								}
+								// start
 								if ((event.mouseMove.x > 770 & event.mouseMove.x < 790) & (event.mouseMove.y > 430 & event.mouseMove.y < 450)) // координаты на кнопке
 								{
 
-									sf::Texture backgroundTexture;
-									if (!backgroundTexture.loadFromFile("flowertimer.png")) {
-										return; // ошибка загрузки картинки
-									}
-									m_window.draw(backgroundSprite);
-
-									StartI.loadFromFile("Pause.png");
-									StartT.loadFromImage(StartI);
-									StartS.setTexture(StartT);
-									StartS.setPosition(770, 430);
-									Timer();
-									// как остановить таймер, нажав на стоп?
+									
 								}
 								if ((event.mouseMove.x > 50 & event.mouseMove.x < 1480) & (event.mouseMove.y > 20)) // координаты на кнопке
 								{
