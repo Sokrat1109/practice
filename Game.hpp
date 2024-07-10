@@ -2,13 +2,18 @@
 #include <string>
 #include <thread>
 #include <iostream>
+#include <windows.h>
+#include <time.h>
+
 #include "Ship.hpp"
 #include "Bullet.hpp"
 #include "Timer.hpp"
+#include "Control.hpp"
 #include "Circle.hpp"
-#include <windows.h>
-#include <time.h>
+#include "ControlTime.hpp"
+
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 namespace mt  // пространство имен
 {
@@ -30,6 +35,8 @@ namespace mt  // пространство имен
 		sf::Text text;
 
 		Dairy launch_dairy;
+		Meditation launch_meditation;
+		Control launch_control;
 		
 
 
@@ -131,11 +138,11 @@ namespace mt  // пространство имен
 								}
 								if ((event.mouseMove.x > 770 & event.mouseMove.x < 790) & (event.mouseMove.y > 470 & event.mouseMove.y < 480)) // координаты на кнопке
 								{
-									//запуск медитации
+									launch_meditation.LifeCycleMeditation();
 								}
 								if ((event.mouseMove.x > 1400 & event.mouseMove.x < 1420) & (event.mouseMove.y > 350 & event.mouseMove.y < 360)) // координаты на кнопке
 								{
-									//запуск контроля самочувствия
+									launch_control.LifeCycleControl();
 								}
 							}
 						}
