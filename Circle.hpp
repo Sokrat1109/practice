@@ -1,12 +1,17 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include <string>
 #include <ctime>
 #include <vector>
 #include <iostream>
+
 #include "Ship.hpp"
 #include "Bullet.hpp"
 #include "Timer.hpp"
+#include "Control.hpp"
+#include "ControlTime.hpp"
+
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
 
 // ДНЕВНИК СПИСОК
@@ -37,9 +42,10 @@ namespace mt
 		std::vector <char> arr;
 
 		time_t date = time(NULL);
-		tm t = *localtime(&date);
+		tm* timeinfo = localtime(&date);
 
-		name = "%.2d:%.2d:%2d", t.tm_day, t.tm_month, t.tm_year;
+		//name = "%.2d:%.2d:%2d", t.tm_day, t.tm_month, t.tm_year;
+		name = asctime(timeinfo);
 
 		Dairy(int width, int height, const std::string& capture)
 		{
