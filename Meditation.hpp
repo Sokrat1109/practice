@@ -1,4 +1,4 @@
-#pragma once
+##pragma once
 #include <string>
 #include <thread>
 #include <iostream>
@@ -67,17 +67,17 @@ namespace mt
 
 		void Time(sf::RenderWindow& window)
 		{
-			sf::Font font;
-			sf::Text text("", font, 20);
-			font.loadFromFile("arial.ttf");
-			text.setColor(sf::Color::Black);
+			
+			m_font.loadFromFile("arial.ttf");
+			sf::Text m_text("", m_font, 20);
+			m_text.setFillColor(sf::Color::Black);
 
 			int hour = 00;
 			int minute = 00;
 			int second = 00;
 			std::string time;
 
-			window.draw(text);
+			window.draw(m_text);
 		}
 
 		void LifeCycleMeditation(sf::RenderWindow& window)
