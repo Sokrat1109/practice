@@ -31,6 +31,7 @@ namespace mt  // пространство имен
 		sf::Texture MeditationT, DairyT, ControlT;
 		sf::Sprite MeditationS, DairyS, ControlS;
 		
+		
 		sf::Font m_font;
 		sf::Text m_text;
 
@@ -100,14 +101,27 @@ namespace mt  // пространство имен
 			ControlS.setTexture(ControlT);
 			ControlS.setPosition(1400, 350);
 
+			m_font.loadFromFile("arial.ttf");
+			m_text.setFillColor(sf::Color::Black);
+
+			/*sf::Text text("welcome", m_font, 50);
+
+			text.setCharacterSize(50);
+			
+			text.setPosition(100, 100);
+			m_window.draw(text);*/
+
 			if (!m_font.loadFromFile("arial.ttf"))
 			{
 				std::cerr << "Error in font loading" << std::endl;
 			}
 
-			m_text.setFont(m_font);
+			
+			m_text.setString("welcome");
 			m_text.setCharacterSize(20);
-			m_text.setFillColor(sf::Color::Black);
+			m_text.setFillColor(sf::Color::Green);
+			m_text.setPosition(0, 0);
+			
 			// НАПЕЧАТАТЬ САМ ТЕКСТ
 
 			
@@ -198,13 +212,13 @@ namespace mt  // пространство имен
 						{
 							// ПЕРЕДЕЛАТЬ КООРДИНАТЫ
 							std::cout << x << " " << y << std::endl;
-							if ((x > 0 && x < 200) && (y > 0 && y < 200)) // назад
+							/*if ((x > 0 && x < 200) && (y > 0 && y < 200)) // назад
 							{
 								std::cout << "1" << std::endl;
 								m_state = MAIN_WINDOW;
-							}
+							}*/
 							// ПЕРЕДЕЛАТЬ КООРДИНАТЫ
-							if ((x > 820 && x < 1120) && (y > 550 && y < 650)) // таймер старт
+							if ((x > 0 && x < 200) && (y > 0 && y < 200)) // таймер старт
 							{
 								std::cout << "1" << std::endl;
 								m_state = TIMER;
@@ -233,6 +247,7 @@ namespace mt  // пространство имен
 							if ((x > 20 && x < 100) && (y > 20 && y < 100)) // назад
 							{
 								std::cout << "1" << std::endl;
+								launch_controltime->Flag(true);
 								m_state = CONTROL;
 							}
 						}
@@ -270,10 +285,10 @@ namespace mt  // пространство имен
 				if (m_state == MAIN_WINDOW)
 				{
 					m_window.draw(m_backgroundSprite);
-					m_window.draw(m_text);
 					m_window.draw(MeditationS);
 					m_window.draw(DairyS);
 					m_window.draw(ControlS);
+					m_window.draw(m_text);
 				}
 				else if (m_state == DAIRY)
 				{
