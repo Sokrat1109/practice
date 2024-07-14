@@ -1,16 +1,16 @@
 #include <SFML/Graphics.hpp>
-#include "Circle.hpp"
 #include "Game.hpp"
+#include "Timer.hpp"
 
 int main()
 {
-    mt::Game game(1920, 1080, "Game"); // диалоговое окно  
+    mt::Game game(1920, 1080, "Game"); // РґРёР°Р»РѕРіРѕРІРѕРµ РѕРєРЅРѕ  
     game.Setup(10);
 
     //if (!game.Setup(3))
       //  return -1;
 
-    game.LifeCycle();  // начинаем цикл
+    game.LifeCycle();  // РЅР°С‡РёРЅР°РµРј С†РёРєР»
 
     return 0;
 }
