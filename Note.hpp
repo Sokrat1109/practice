@@ -66,9 +66,9 @@ namespace mt
 		void WriteNote()
 		{
 			sf::Font font;
-			sf::Text text("", font, 20);
 			font.loadFromFile("arial.ttf");
-			text.setColor(sf::Color::Black);
+			sf::Text text("", font, 20);
+			text.setFillColor(sf::Color::Black);
 
 			getline(std::cin, writes);
 
