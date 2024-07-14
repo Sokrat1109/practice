@@ -1,3 +1,9 @@
+#pragma once
+#include <string>
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <windows.h>
 #include <time.h>
 
 #include "Meditation.hpp"
@@ -78,12 +84,12 @@ namespace mt
 		}
 
 		// как сделать, чтобы таймер увеличивал значение ровно +1 в секунду
-		/*void TimerStart(sf::RenderWindow& window) // int n
+		void TimerStart(sf::RenderWindow& window) // int n
 		{
 			sf::Font font;
 			sf::Text text("", font, 20);
 			font.loadFromFile("arial.ttf");
-			text.setColor(sf::Color::Black);
+			text.setFillColor(sf::Color::Black);
 
 			int hour = 00;
 			int minute = 00;
@@ -92,18 +98,22 @@ namespace mt
 			std::string stop;
 			// if (n == 1) // if (n == 0)
 
-			while (minute < 15)
+			while (minute < 1)
 			{
-				while (second < 60)
+				while (second < 5)
 				{
-					sf::Text text(time, font, 20);
 					time = hour, ".", minute, ".", second;
 					stop = hour, ".", minute, ".", second;
 					sf::Text text(time, font, 20);
+					
 					window.draw(text);
 					second++;
 
-					std::chrono::this_thread::sleep_for(0.999s);
+					//clock_t t = clock();
+					//int time = (clock() - t) / CLOCKS_PER_SEC; // и тут получаем время работы в секундах
+
+					std::this_thread::sleep_for(std::chrono::seconds(1));
+					//std::chrono::this_thread::sleep_for(0.999s);
 					system("cls");
 				}
 				minute++;
@@ -111,9 +121,10 @@ namespace mt
 				time = hour, ".", minute, ".", second;
 				stop = hour, ".", minute, ".", second;
 				sf::Text text(time, font, 20);
+				text.setPosition(100, 100);
 				window.draw(text);
 
-				std::chrono::this_thread::sleep_for(0.999s);
+				std::this_thread::sleep_for(std::chrono::seconds(1));
 				system("cls");
 			}
 
@@ -125,7 +136,7 @@ namespace mt
 				sf::Text text(time, font, 20);
 				window.draw(text);
 			}
-		}*/
+		}
 
 		void LifeCycleTimer(sf::RenderWindow& window)
 		{
@@ -133,6 +144,7 @@ namespace mt
 			window.draw(BackS);
 			window.draw(PauseS);
 			window.draw(SquareS);
+			window.display();
 
 			//sf::SoundBuffer buffer;
 			buffer.loadFromFile("Sound.wav");
@@ -140,7 +152,9 @@ namespace mt
 			sound.setBuffer(buffer);
 			sound.play();
 
-			//TimerStart(); // 1 ???????????
+			TimerStart(window);
+
 		}
+	
 	};
 }
