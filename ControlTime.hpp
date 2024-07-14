@@ -59,7 +59,7 @@ namespace mt
 			SquareI.loadFromFile("Square.png");
 			SquareT.loadFromImage(SquareI);
 			SquareS.setTexture(SquareT);
-			SquareS.setPosition(300, 400);
+			SquareS.setPosition(600, 400);
 
 			vdohI.loadFromFile("vdoh.png");
 			vdohT.loadFromImage(vdohI);
@@ -107,28 +107,50 @@ namespace mt
 
 		// как сделать, чтобы таймер увеличивал значение ровно +1 в секунду
 
-		/*void TimerBreathe(sf::RenderWindow& window) // int n
+		bool flag = 0;
+
+		void Flag(bool f)
+		{
+			flag = f;
+		}
+		bool Flag()
+		{
+			return flag;
+		}
+
+		void TimerBreathe(sf::RenderWindow& window) // int n
 		{
 			sf::Font font;
 			sf::Text text("", font, 20);
 			font.loadFromFile("arial.ttf");
-			text.setColor(sf::Color::Black);
+			text.setFillColor(sf::Color::Black);
 
 			int count = 0;
 			int banner = 0;
 
 			std::string time;
 			std::string stop;
-
-
-			while (count < 5)
+			
+			while (banner < 4)
 			{
-				time = count + 1;
-				sf::Text text(time, font, 20);
-				window.draw(text);
+				window.clear();
 
-				std::chrono::this_thread::sleep_for(0.999s);
+				window.draw(m_backgroundSprite);
+				window.draw(BackS);
+				window.draw(SquareS);
+
+				time = count + 1;
+				//sf::Text text(time, font, 20);
+				window.draw(text);
+				//window.display();
+				std::this_thread::sleep_for(std::chrono::seconds(1));
 				system("cls");
+
+				if (flag = 1)
+				{
+					flag = 0;
+					break;
+				}
 
 				if (count < 4)
 				{
@@ -143,28 +165,35 @@ namespace mt
 
 				if (banner == 0)
 				{
+					//window.clear();
 					window.draw(vdohS);
+					//window.display();
 				}
 				if (banner == 1 || banner == 3)
 				{
+					//window.clear();
 					window.draw(zaderjkaS);
+					//window.display();
 				}
 				if (banner == 2)
 				{
+					//window.clear();
 					window.draw(vydohS);
+					//window.display();
 				}
-				if (banner >= 4)
-				{
-					break;
-				}
+				window.display();
 			}
-		}*/
+		}
 
 		void LifeCycleControltime(sf::RenderWindow& window)
 		{
+			//window.clear();
+
+			TimerBreathe(window);
 			window.draw(m_backgroundSprite);
 			window.draw(BackS);
 			window.draw(SquareS);
+			window.display();
 
 			// + вдох выдох задержка
 
@@ -174,7 +203,7 @@ namespace mt
 			sound.setBuffer(buffer);
 			sound.play();
 
-			//TimerBreathe(); // 1 ???????????
+			TimerBreathe(window); 
 		}
 	};
 }
